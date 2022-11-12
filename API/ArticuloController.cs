@@ -70,7 +70,7 @@ namespace Proyecto.API
                         StatusCode = HttpStatusCode.OK,
                         From = "api/Articulo/AddArticulo",
                         Method = "Post",
-                        Content = "Cliente Agregado",
+                        Content = "Articulo Agregado",
                         objArticulo = articulo
                     };
                     return Content(HttpStatusCode.OK, articulo);
@@ -102,8 +102,8 @@ namespace Proyecto.API
                     var objectResult = new
                     {
                         StatusCode = HttpStatusCode.BadRequest,
-                        From = "api/Articulo/AddArticulo",
-                        Method = "Post",
+                        From = "api/Articulo/UpdateArticulo",
+                        Method = "Put",
                         Content = errorDictionary
                     };
                     return Content(HttpStatusCode.BadRequest, objectResult);
@@ -116,9 +116,9 @@ namespace Proyecto.API
                     var objectResult = new
                     {
                         StatusCode = HttpStatusCode.OK,
-                        From = "api/Articulo/AddArticulo",
-                        Method = "Post",
-                        Content = "Cliente Agregado",
+                        From = "api/Articulo/UpdateArticulo",
+                        Method = "Put",
+                        Content = "Articulo Actualizado",
                         objArticulo = articulo
                     };
                     return Content(HttpStatusCode.OK, articulo);
