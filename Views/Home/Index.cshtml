@@ -1,0 +1,122 @@
+﻿<div class="bg-warning" style="max-width: 100%;">
+    <div class="container bg-warning">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center">
+                        <div class="card col-md-8">
+                            <div class="card-header">
+                                <h4>Registro Articulos</h4>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <form>
+                                        <input type="hidden" id="idArt" value="0"/>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Sku</label>
+                                                <input type="number" required class="form-control" maxlength="6" name="Sku" id="idSku">
+                                                <p class="text-danger" id="SkuError" style="display:none">Error complete el campo</p>
+                                            </div>
+                                            <div class="col-md-6 d-flex justify-content-center">
+                                                <div class="form-check mt-4" style="display:none" id="checkDescontinuar">
+                                                    <input type="checkbox" required class="form-check-input" name="Descontinuado" id="Desactivar">
+                                                    <label class="form-check-label" for="Desactivar">¿Descontinuado?</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="form-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Articulo</label>
+                                                    <input type="text" required class="form-control" maxlength="15" name="Articulo" id="Articulo">
+                                                    <p class="text-danger" id="ArticuloError" style="display:none">Error complete el campo</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Marca</label>
+                                                    <input type="text" required class="form-control" maxlength="15" name="Marca" id="Marca">
+                                                    <p class="text-danger" id="MarcaError" style="display:none">Error complete el campo</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Modelo</label>
+                                                    <input type="text" required class="form-control" maxlength="15" name="Modelo" id="Modelo">
+                                                    <p class="text-danger" id="ModeloError" style="display:none">Error complete el campo</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Departamento <p id="nombreDepartamento"></p></label>
+                                                    <select type="text" required class="form-control" name="idDepartamento" id="Departamento">
+                                                        <option value="">Seleccione una opcion</option>
+                                                    </select>
+                                                    <p class="text-danger" id="DepartamentoError" style="display:none">Error complete el campo</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Clase <p id="nombreClase"></p></label>
+                                                    <select type="text" required class="form-control" name="idClase" id="Clase">
+                                                        <option value="">Seleccione una opcion</option>
+                                                    </select>
+                                                    <p class="text-danger" id="ClaseError" style="display:none">Error complete el campo</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Familia <p id="nombreFamilia"></p></label>
+                                                    <select type="text" required class="form-control" name="idFamilia" id="Familia">
+                                                        <option value="">Seleccione una opcion</option>
+                                                    </select>
+                                                    <p class="text-danger" id="FamiliaError" style="display:none">Error complete el campo</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Stock</label>
+                                                    <input type="number" required class="form-control" maxlength="9" name="Stock" id="Stock">
+                                                    <p class="text-danger" id="StockError" style="display:none">Error complete el campo</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Cantidad</label>
+                                                    <input type="number" required class="form-control" maxlength="9" name="Cantidad" id="Cantidad">
+                                                    <p class="text-danger" id="CantidadError" style="display:none">Error complete el campo</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row" style="display:none" id="divFechas">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Fecha Registro</label>
+                                                <input type="date" disabled class="form-control" name="FechaAlta" id="FechaAlta">
+                                                <p class="text-danger" id="FechaAltaError" style="display:none">Error complete el campo</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Fecha Baja</label>
+                                                <input type="date" disabled class="form-control" name="FechaBaja" id="FechaBaja">
+                                                <p class="text-danger" id="FechaBajaError" style="display:none">Error complete el campo</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="mt-4 d-flex justify-content-center">
+                                                <a class="btn btn-primary" id="guardar" onclick="AddArticulo()">Guardar</a>
+                                                <a class="btn btn-warning" id="editar" onclick="UpdateArticulo()" style="display:none">Editar</a>
+                                                <a class="btn btn-danger ms-2" id="eliminar" onclick="Eliminar()" style="display:none">Eliminar</a>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

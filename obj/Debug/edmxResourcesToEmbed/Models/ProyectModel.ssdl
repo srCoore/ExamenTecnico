@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBArafatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Articulo">
+    <Key>
+      <PropertyRef Name="idArticulo" />
+    </Key>
+    <Property Name="idArticulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sku" Type="numeric" Precision="6" Scale="0" />
+    <Property Name="Articulo" Type="varchar" MaxLength="15" />
+    <Property Name="Marca" Type="varchar" MaxLength="15" />
+    <Property Name="Modelo" Type="varchar" MaxLength="20" />
+    <Property Name="idDepartamento" Type="numeric" Precision="1" Scale="0" Nullable="false" />
+    <Property Name="idClase" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+    <Property Name="idFamilia" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="FechaAlta" Type="date" />
+    <Property Name="Stock" Type="numeric" Precision="9" Scale="0" />
+    <Property Name="Cantidad" Type="numeric" Precision="9" Scale="0" />
+    <Property Name="Descontinuado" Type="numeric" Precision="1" Scale="0" />
+    <Property Name="FechaBaja" Type="date" />
+  </EntityType>
+  <EntityType Name="Clase">
+    <Key>
+      <PropertyRef Name="idClase" />
+    </Key>
+    <Property Name="idClase" Type="numeric" Precision="2" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreClase" Type="varchar" MaxLength="50" />
+    <Property Name="idDepartamento" Type="numeric" Precision="1" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Departamento">
+    <Key>
+      <PropertyRef Name="idDepartamento" />
+    </Key>
+    <Property Name="idDepartamento" Type="numeric" Precision="1" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Familia">
+    <Key>
+      <PropertyRef Name="idFamilia" />
+    </Key>
+    <Property Name="idFamilia" Type="numeric" Precision="3" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreFamilia" Type="varchar" MaxLength="100" />
+    <Property Name="idClase" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Clase__idDeparta__3C69FB99">
+    <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+    <End Role="Clase" Type="Self.Clase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamento">
+        <PropertyRef Name="idDepartamento" />
+      </Principal>
+      <Dependent Role="Clase">
+        <PropertyRef Name="idDepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Familia__idClase__3D5E1FD2">
+    <End Role="Clase" Type="Self.Clase" Multiplicity="1" />
+    <End Role="Familia" Type="Self.Familia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clase">
+        <PropertyRef Name="idClase" />
+      </Principal>
+      <Dependent Role="Familia">
+        <PropertyRef Name="idClase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Alta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Sku" Type="numeric" Mode="In" />
+    <Parameter Name="Articulo" Type="varchar" Mode="In" />
+    <Parameter Name="Marca" Type="varchar" Mode="In" />
+    <Parameter Name="Modelo" Type="varchar" Mode="In" />
+    <Parameter Name="idDepartamento" Type="numeric" Mode="In" />
+    <Parameter Name="idClase" Type="numeric" Mode="In" />
+    <Parameter Name="idFamilia" Type="numeric" Mode="In" />
+    <Parameter Name="FechaAlta" Type="datetime" Mode="In" />
+    <Parameter Name="Stock" Type="numeric" Mode="In" />
+    <Parameter Name="Cantidad" Type="numeric" Mode="In" />
+    <Parameter Name="Descontinuado" Type="numeric" Mode="In" />
+    <Parameter Name="FechaBaja" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="Baja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Sku" Type="numeric" Mode="In" />
+    <Parameter Name="idArticulo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Cambio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idArticulo" Type="int" Mode="In" />
+    <Parameter Name="Sku" Type="numeric" Mode="In" />
+    <Parameter Name="Articulo" Type="varchar" Mode="In" />
+    <Parameter Name="Marca" Type="varchar" Mode="In" />
+    <Parameter Name="Modelo" Type="varchar" Mode="In" />
+    <Parameter Name="idDepartamento" Type="numeric" Mode="In" />
+    <Parameter Name="idClase" Type="numeric" Mode="In" />
+    <Parameter Name="idFamilia" Type="numeric" Mode="In" />
+    <Parameter Name="Stock" Type="numeric" Mode="In" />
+    <Parameter Name="Cantidad" Type="numeric" Mode="In" />
+    <Parameter Name="Descontinuado" Type="numeric" Mode="In" />
+    <Parameter Name="FechaBaja" Type="date" Mode="In" />
+  </Function>
+  <Function Name="Consulta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Sku" Type="numeric" Mode="In" />
+  </Function>
+  <EntityContainer Name="DBArafatModelStoreContainer">
+    <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clase" EntityType="Self.Clase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Familia" EntityType="Self.Familia" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Clase__idDeparta__3C69FB99" Association="Self.FK__Clase__idDeparta__3C69FB99">
+      <End Role="Departamento" EntitySet="Departamento" />
+      <End Role="Clase" EntitySet="Clase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Familia__idClase__3D5E1FD2" Association="Self.FK__Familia__idClase__3D5E1FD2">
+      <End Role="Clase" EntitySet="Clase" />
+      <End Role="Familia" EntitySet="Familia" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

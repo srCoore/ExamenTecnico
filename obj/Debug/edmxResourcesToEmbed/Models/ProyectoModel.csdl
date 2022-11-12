@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBArafatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Articulo">
+    <Key>
+      <PropertyRef Name="idArticulo" />
+    </Key>
+    <Property Name="idArticulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sku" Type="Decimal" Precision="6" Scale="0" />
+    <Property Name="Articulo1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Marca" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Modelo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="idDepartamento" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
+    <Property Name="idClase" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+    <Property Name="idFamilia" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="FechaAlta" Type="DateTime" Precision="0" />
+    <Property Name="Stock" Type="Decimal" Precision="9" Scale="0" />
+    <Property Name="Cantidad" Type="Decimal" Precision="9" Scale="0" />
+    <Property Name="Descontinuado" Type="Decimal" Precision="1" Scale="0" />
+    <Property Name="FechaBaja" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Clase">
+    <Key>
+      <PropertyRef Name="idClase" />
+    </Key>
+    <Property Name="idClase" Type="Decimal" Precision="2" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreClase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idDepartamento" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Departamento" Relationship="Self.FK__Clase__idDeparta__3C69FB99" FromRole="Clase" ToRole="Departamento" />
+    <NavigationProperty Name="Familia" Relationship="Self.FK__Familia__idClase__3D5E1FD2" FromRole="Clase" ToRole="Familia" />
+  </EntityType>
+  <EntityType Name="Departamento">
+    <Key>
+      <PropertyRef Name="idDepartamento" />
+    </Key>
+    <Property Name="idDepartamento" Type="Decimal" Precision="1" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Clase" Relationship="Self.FK__Clase__idDeparta__3C69FB99" FromRole="Departamento" ToRole="Clase" />
+  </EntityType>
+  <EntityType Name="Familia">
+    <Key>
+      <PropertyRef Name="idFamilia" />
+    </Key>
+    <Property Name="idFamilia" Type="Decimal" Precision="3" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreFamilia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="idClase" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Clase" Relationship="Self.FK__Familia__idClase__3D5E1FD2" FromRole="Familia" ToRole="Clase" />
+  </EntityType>
+  <Association Name="FK__Clase__idDeparta__3C69FB99">
+    <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+    <End Role="Clase" Type="Self.Clase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamento">
+        <PropertyRef Name="idDepartamento" />
+      </Principal>
+      <Dependent Role="Clase">
+        <PropertyRef Name="idDepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Familia__idClase__3D5E1FD2">
+    <End Role="Clase" Type="Self.Clase" Multiplicity="1" />
+    <End Role="Familia" Type="Self.Familia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clase">
+        <PropertyRef Name="idClase" />
+      </Principal>
+      <Dependent Role="Familia">
+        <PropertyRef Name="idClase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProyectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Articulo" EntityType="Self.Articulo" />
+    <EntitySet Name="Clase" EntityType="Self.Clase" />
+    <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+    <EntitySet Name="Familia" EntityType="Self.Familia" />
+    <AssociationSet Name="FK__Clase__idDeparta__3C69FB99" Association="Self.FK__Clase__idDeparta__3C69FB99">
+      <End Role="Departamento" EntitySet="Departamento" />
+      <End Role="Clase" EntitySet="Clase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Familia__idClase__3D5E1FD2" Association="Self.FK__Familia__idClase__3D5E1FD2">
+      <End Role="Clase" EntitySet="Clase" />
+      <End Role="Familia" EntitySet="Familia" />
+    </AssociationSet>
+    <FunctionImport Name="Alta">
+      <Parameter Name="Sku" Mode="In" Type="Decimal" />
+      <Parameter Name="Articulo" Mode="In" Type="String" />
+      <Parameter Name="Marca" Mode="In" Type="String" />
+      <Parameter Name="Modelo" Mode="In" Type="String" />
+      <Parameter Name="idDepartamento" Mode="In" Type="Decimal" />
+      <Parameter Name="idClase" Mode="In" Type="Decimal" />
+      <Parameter Name="idFamilia" Mode="In" Type="Decimal" />
+      <Parameter Name="FechaAlta" Mode="In" Type="DateTime" />
+      <Parameter Name="Stock" Mode="In" Type="Decimal" />
+      <Parameter Name="Cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="Descontinuado" Mode="In" Type="Decimal" />
+      <Parameter Name="FechaBaja" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Baja">
+      <Parameter Name="Sku" Mode="In" Type="Decimal" />
+      <Parameter Name="Descontinuado" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Cambio">
+      <Parameter Name="idArticulo" Mode="In" Type="Int32" />
+      <Parameter Name="Sku" Mode="In" Type="Decimal" />
+      <Parameter Name="Articulo" Mode="In" Type="String" />
+      <Parameter Name="Marca" Mode="In" Type="String" />
+      <Parameter Name="Modelo" Mode="In" Type="String" />
+      <Parameter Name="idDepartamento" Mode="In" Type="Decimal" />
+      <Parameter Name="idClase" Mode="In" Type="Decimal" />
+      <Parameter Name="idFamilia" Mode="In" Type="Decimal" />
+      <Parameter Name="Stock" Mode="In" Type="Decimal" />
+      <Parameter Name="Cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="Descontinuado" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Consulta" ReturnType="Collection(DBArafatModel.Consulta_Result)">
+      <Parameter Name="Sku" Mode="In" Type="Decimal" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="Consulta_Result">
+    <Property Type="Int32" Name="idArticulo" Nullable="false" />
+    <Property Type="Decimal" Name="Sku" Nullable="true" Precision="6" Scale="0" />
+    <Property Type="String" Name="Articulo" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Marca" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Modelo" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="idDepartamento" Nullable="false" Precision="1" Scale="0" />
+    <Property Type="String" Name="Departamento" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="idClase" Nullable="false" Precision="2" Scale="0" />
+    <Property Type="String" Name="Clase" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="idFamilia" Nullable="false" Precision="3" Scale="0" />
+    <Property Type="String" Name="Familia" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="Stock" Nullable="true" Precision="9" Scale="0" />
+    <Property Type="Decimal" Name="Cantidad" Nullable="true" Precision="9" Scale="0" />
+    <Property Type="Decimal" Name="Descontinuado" Nullable="true" Precision="1" Scale="0" />
+    <Property Type="DateTime" Name="FechaAlta" Nullable="true" />
+    <Property Type="DateTime" Name="FechaBaja" Nullable="true" />
+  </ComplexType>
+</Schema>
