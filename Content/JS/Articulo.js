@@ -17,7 +17,7 @@ let familiaid = 0;
 
 
 function eventos(){
-    inpSku.addEventListener("change", getArticulo);
+    inpSku.addEventListener("click", getArticulo);
     departamento.addEventListener("change",GetClase);
     clase.addEventListener("change",GetFamilia);
 }
@@ -47,8 +47,6 @@ function llenarDatos(data){
     
 }
 
-
-
 /* Seccion: GET */
 /* Obtiene los clases, y familias a partir de el departamento seleccionado*/
 
@@ -62,7 +60,7 @@ function getArticulo(e){
     $.ajax({
         url: "/api/Articulo/GetBySku",
         type: 'GET',
-        data: {Sku : sku},
+        data: { Sku: document.getElementById("idNumeroSku").value},
         dataType: 'json', // added data type
         success: function(response) {
             
@@ -72,7 +70,7 @@ function getArticulo(e){
             llenarDatos(response);
         },
         error: function(response) {
-            $("#editar,#eliminar,#checkDescontinuar,#divFechas").hide();
+            $("#editar,#eliminar,#checkDescontinuar,#divFechas,#nombreDepartamento,#nombreClase,#nombreFamilia").hide();
             getDepartamentos();
             $("#guardar").show();
         }
@@ -291,7 +289,6 @@ function Eliminar(){
         confirmButtonText: 'Si',
         denyButtonText: `No`,
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             $.ajax({
                 url: `/api/Articulo/Descontinuar?Sku=${parseFloat(inpSku.value)}&idArticulo=${parseFloat(idArticuloHidden.value)}`,
@@ -375,3 +372,68 @@ function llenarSelectCF(data, tipe){
     });
     
 }
+
+function getAllArticulos() {
+    const tbody = document.getElementById("idTdBody");
+    let strBody = ``;
+    $.ajax({
+        url: "/api/Articulo/GetAllArticulo",
+        type: 'GET',
+       
+        dataType: 'json', // added data type
+        success: function (response) {
+            console.log(response.data);
+            response.data.forEach((d) => {
+
+                strBody += `
+                     <tr>
+                        <td>
+                            ${ d.Sku}
+                        </td>
+                        <td>
+                            ${ d.Articulo1}
+                        </td>
+                        <td>
+                             ${ d.Marca}
+                        </td>
+                        <td>
+                            ${ d.Modelo}
+                        </td>
+                        <td>
+                            ${ d.idDepartamento}
+                        </td>
+                        <td>
+                             ${ d.idClase}
+                        </td>
+                        <td>
+                            ${ d.idFamilia}
+                        </td>
+                        <td>
+                             ${d.FechaAlta}
+                        </td>
+                        <td>
+                            ${ d.Stock}
+                        </td>
+                        <td>
+                             ${ d.Cantidad}
+                        </td>
+                        <td>
+                             ${ d.Descontinuado}
+                        </td>
+                        <td>
+                            ${ d.FechaBaja}
+                        </td>
+                    </tr>
+                `;
+
+            })
+            tbody.innerHTML = strBody;
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+}
+
+
+getAllArticulos();

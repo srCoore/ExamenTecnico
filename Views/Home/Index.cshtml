@@ -11,12 +11,13 @@
                             <div class="card-body">
                                 <div>
                                     <form>
-                                        <input type="hidden" id="idArt" value="0"/>
+                                        <input type="hidden" id="idArt" value="0" />
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label class="form-label">Sku</label>
-                                                <input type="number" required class="form-control" maxlength="6" name="Sku" id="idSku">
-                                                <p class="text-danger" id="SkuError" style="display:none">Error complete el campo</p>
+                                                <input type="number" required class="form-control" maxlength="6" name="Sku" id="idNumeroSku">
+                                                <p class="text-danger" style="display:none">Error complete el campo</p>
+                                                <a class="btn btn-primary" id="idSku">Buscar</a>
                                             </div>
                                             <div class="col-md-6 d-flex justify-content-center">
                                                 <div class="form-check mt-4" style="display:none" id="checkDescontinuar">
@@ -110,7 +111,9 @@
                                         </div>
 
                                     </form>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -119,4 +122,93 @@
         </div>
     </div>
 
+</div>
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-8">
+            <table id="tableArticulo">
+                <thead>
+                    <tr>
+                        <th>
+                            Sku
+                        </th>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Articulo
+                        </th>
+                        <th>
+                            Marca
+                        </th>
+                        <th>
+                            Modelo
+                        </th>
+                        <th>
+                            Departamento
+                        </th>
+                        <th>
+                            Clase
+                        </th>
+                        <th>
+                            Familia
+                        </th>
+                        <th>
+                            Stock
+                        </th>
+                        <th>
+                            Cantidad
+                        </th>
+                        <th>
+                            Descontinuado
+                        </th>
+                        <th>
+                            Fecha baja
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="idTdBody">
+                    <tr>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                        <td>
+                            col 1
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

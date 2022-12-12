@@ -34,6 +34,19 @@ namespace Proyecto.API
             }
         }
 
+        [HttpGet]
+        public IHttpActionResult GetAllArticulo()
+        {
+            try
+            {
+                var listaArticulos = articuloRepository.getAllArticulos();
+                return Content(HttpStatusCode.OK, new { data = listaArticulos.ToArray() });
+            }catch(Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, new { mensaje = "Error en el servidor" });
+            }
+        }
+
         [HttpPost]
         public IHttpActionResult AddArticulo([FromBody] Articulo articulo)
         {

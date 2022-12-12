@@ -22,6 +22,12 @@ namespace Proyecto.Repository
             return articulo;
         }
 
+        public List<Articulo> getAllArticulos()
+        {
+            var lista = context.Articulo.ToList();
+            return lista;
+        }
+
         public void AgregarArticulo(Articulo articulo)
         {
             articulo.FechaAlta = DateTime.Now;
